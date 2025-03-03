@@ -1,0 +1,358 @@
+---
+include:
+  - docassemble.AssemblyLine:assembly_line.yml
+  - docassemble.MATCTheme:matc_theme.yml
+---
+metadata:
+  title: >-
+    Lemon Law Final Repair Letter
+  short title: >-
+    Lemon law template
+  description: |-
+        This interview will help you write a Final Repair Letter to a dealership under the Massachusetts Lemon Law. The Masachussetts Lemon Law protects buyers of new vehicles that have repair issues and cannot solve them working directly with the dealership they purchased from.
+  can_I_use_this_form: |
+    You can use this form if:
+    
+    1. You purchased or leased a new vehicle from a dealership in Massachusetts
+    1. You purchased or leased the vehicle in the last year
+    1. The vehicle has less than 15,000 miles on it
+    1. You have been to the dealship 3 times for repairs or unable to use it for 15 days
+    1. Your vehicle is still not fixed
+  before_you_start: |
+    Before you get started, gather:
+    
+    1. Your vehicle information (year, make, model, VIN)
+    1. Contact information of the dealership where you purchased the vehicle
+    1. The dates you have taken the vehicle to be repaired
+    1. Any records or receipts of work done to your car by the dealer
+    1. Details of the problems your vehicle has given you
+    
+    When you are finished, you will need to:
+    
+    1. Keep a copy of the letter for yourself
+    1. Send a copy of the letter to the dealership. They will have 7 business days to respond.
+  maturity: production
+  estimated_completion_minutes: 10
+  estimated_completion_delta: 5
+  tags: []
+  authors:
+    - Steven Terry II
+  original_form: []
+  original_form_published_on: ""
+  help_page_url: >-
+    https://www.mass.gov/guides/guide-to-new-car-lemon-law
+  help_page_title: >-
+    Mass.gov Lemon Law
+  allowed_courts: []
+  typical_role: "plaintiff"
+  al_weaver_version: "1.11.0"
+  generated_on: "2024-10-31"
+  languages:
+    - en
+  jurisdiction: NAM-US-US+MA
+  review_date: 2024-10-31
+  form_titles:
+    - Lemon Law Final Repair Letter
+  form_numbers: []
+  update_notes: |
+---
+code: |
+  # This controls the default country and list of states in address field questions
+  AL_DEFAULT_COUNTRY = "US"
+---
+code: |
+  # This controls the default state in address field questions
+  AL_DEFAULT_STATE = "MA"
+---
+code: |
+  github_repo_name =  'docassemble-LemonLawLetter'
+---
+code: |
+  interview_short_title = "Write a final repair request letter under the Lemon Law"
+---
+code: |
+  al_form_type = "letter" 
+---
+objects:
+  - users: ALPeopleList.using(ask_number=True,target_number=1)
+---
+sections:
+  - review_lemon_law_letter: Review your answers
+---
+#################### Interview order #####################
+comment: |
+  Controls order and branching logic for questions specific to this form
+id: interview_order_lemon_law_letter
+code: |
+  # Set the allowed courts for this interview
+  nav.set_section("review_lemon_law_letter")
+  user_role = "plaintiff"
+  user_ask_role = "plaintiff"
+  users.gather()
+  set_parts(subtitle=str(users))
+  users[0].address.address
+  vehicle_make
+  set_progress(25)
+  other_parties[0].name
+  other_parties[0].address.address
+  other_parties.there_is_another = False
+  days_lost
+  vehicle_issue_description
+  date_return3
+  date_return2
+  date_return1
+  users[0].signature
+  interview_order_lemon_law_letter = True
+---
+###################### Main order ######################
+comment: |
+  This block includes the logic for standalone interviews.
+  Delete mandatory: True to include in another interview
+mandatory: True
+code: |
+  al_intro_screen
+  lemon_law_letter_intro
+  interview_order_lemon_law_letter
+  signature_date
+  # Store anonymous data for analytics / statistics
+  store_variables_snapshot(
+      persistent=True,
+      data={
+          "zip": showifdef("users[0].address.zip"),
+          "reached_interview_end": True,
+      },
+  )
+  lemon_law_letter_download
+---
+id: Lemon_Law_Final_Repair_Letter
+continue button field: lemon_law_letter_intro
+question: |
+  Lemon Law final repair letter
+subquestion: |
+  This interview will help you write a final repair letter to a dealership under the Massachusetts Lemon Law. The Masachussetts Lemon Law protects buyers of new vehicles that have repair issues and cannot solve them working directly with the dealership they purchased from. 
+  
+  You can use this form if:
+  
+  1. You purchased or leased a new vehicle from a dealership in Massachusetts
+  2. You purchased or leased the vehicle in the last year
+  3. The vehicle has less than 15,000 miles on it
+  4. You have had trouble getting it repaired by the dealership
+
+  Before you get started, please gather:
+  
+  1. Your vehicle information (year, make, model, VIN)
+  1. Contact information of the dealership where you got the vehicle
+  1. The dates you have taken the vehicle to be repaired
+  1. Any records or receipts of work done to your vehicle by the dealer
+  1. Details of the problems your vehicle has given you
+  
+  When you are finished, you will need to:
+  
+  1. Keep a copy of the letter for yourself
+  1. Send a copy of the letter to the dealership. They will have 7 business days to respond.
+
+  Most people take about 10 minutes to complete this interview.
+---
+id: Information about you and your vehicle
+question: |
+  What vehicle did you buy?
+fields:
+  - "Vehicle year": vehicle_year
+  - "Vehicle make": vehicle_make
+    under text: "example: Kia"
+  - "Vehicle model": vehicle_model
+    under text: "example: Forte"
+  - "Date of purchase": purchase_date
+    min: ${today().minus(months=15)}
+    datatype: date
+  - "Vehicle Identification Number (VIN)": VIN
+    minlength: 17
+---
+sets:
+  - other_parties[0].name.first
+id: names of opposing parties
+question: |
+  What is the name of the dealership you purchased your vehicle from?
+fields:
+  - no label: other_parties[0].name.first
+---
+id: Repair details
+question: |
+  Describe the problems you are having with your vehicle
+fields:
+  - "Vehicle issue description": vehicle_issue_description
+    input type: area
+---
+question:   How many days have you been unable to use your vehicle?
+subquestion: Include days it has not worked properly and days it has been at the dealership for repairs
+fields:
+  - "Days lost": days_lost
+    datatype: integer
+    min: 0
+---
+question: When have you taken your vehicle in for repairs?
+subquestion: Start with the most recent time
+fields:
+  - "Dropoff date": date_return3
+    datatype: date
+  - "Dropoff date": date_return2
+    required: false
+    datatype: date
+  - "Dropoff date": date_return1
+    required: false
+    datatype: date
+---
+id: preview lemon_law_letter
+question: |
+  Preview your form before you sign it
+subquestion: |
+  Here is a preview of the form you will sign on the next page.   
+  
+  ${ al_recipient_bundle.as_pdf(key='preview') }
+
+  Click the image to open it in a new tab. Click the "Edit answers" button
+  to edit your answers.
+
+  ${ action_button_html(url_action('review_lemon_law_letter'), label='Edit answers', color='info') }
+  
+  Remember to come back to this window to continue and sign your form.
+continue button field: lemon_law_letter_preview_question    
+---
+code: |
+  signature_fields = ['users[0].signature']
+---
+id: lemon law letter review screen
+event: review_lemon_law_letter
+question: |
+  Review your answers
+review:
+  - Edit: dealership_name
+    button: |
+      **Dealership name**:
+      ${ dealership_name }
+  - Edit: vehicle_make
+    button: |
+      **Vehicle make**:
+      ${ vehicle_make }
+  - Edit: days_lost
+    button: |
+      **Days lost**:
+      ${ days_lost }
+  - Edit: vehicle_issue_description
+    button: |
+      **Vehicle issue description**:
+      > ${ single_paragraph(vehicle_issue_description) }
+  - Edit: purchase_date
+    button: |
+      **Date of Purchase**:
+      ${ purchase_date }
+  - Edit: date_return2
+    button: |
+      **Date return2**:
+      ${ date_return2 }
+  - Edit: vehicle_model
+    button: |
+      **Vehicle model**:
+      ${ vehicle_model }
+  - Edit: vehicle_year
+    button: |
+      **Vehicle year**:
+      ${ vehicle_year }
+  - Edit: vin
+    button: |
+      **Vin**:
+      ${ vin }
+  - Edit: date_return3
+    button: |
+      **Date return3**:
+      ${ date_return3 }
+  - Edit: users.revisit
+    button: |
+      **Users**
+
+      % for item in users:
+        * ${ item }
+      % endfor
+  - Edit: dealership_address
+    button: |
+      **Dealership address**:
+      ${ dealership_address }
+  - Edit: date_return1
+    button: |
+      **Date return1**:
+      ${ date_return1 }
+---
+continue button field: users.revisit
+question: |
+  Edit users
+subquestion: |
+  ${ users.table }
+
+  ${ users.add_action() }
+---
+table: users.table
+rows: users
+columns:
+  - Address: |
+      row_item.address.block() if defined("row_item.address.address") else ""
+  - Name: |
+      row_item.name.full() if defined("row_item.name.first") else ""
+  - Signature: |
+      row_item.signature if defined("row_item.signature") else ""
+edit:
+  - address.address
+  - name.first
+  - signature
+confirm: True
+
+---
+id: download lemon_law_letter
+event: lemon_law_letter_download
+question: |
+  All done
+subquestion: |
+  Thank you ${users}. Your form is ready to download and deliver.
+  
+  View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
+
+  ${ action_button_html(url_action('review_lemon_law_letter'), label='Edit answers', color='info') }
+  
+  
+  ${ al_user_bundle.download_list_html() }
+  
+
+  ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
+
+progress: 100
+---
+# ALDocument objects specify the metadata for each template
+objects:
+  - lemon_law_letter_Post_interview_instructions: ALDocument.using(title="Instructions", filename="lemon_law_letter_next_steps.docx", enabled=True, has_addendum=False)
+  - lemon_law_letter_attachment: ALDocument.using(title="Lemon Law Final Repair Letter", filename="lemon_law_letter", enabled=True, has_addendum=False, )
+---
+# Bundles group the ALDocuments into separate downloads, such as for court and for the user
+objects:
+  - al_user_bundle: ALDocumentBundle.using(elements=[lemon_law_letter_Post_interview_instructions, lemon_law_letter_attachment], filename="lemon_law_letter", title="All forms to download for your records", enabled=True)
+  - al_recipient_bundle: ALDocumentBundle.using(elements=[lemon_law_letter_attachment],  filename="lemon_law_letter", title="All forms to file", enabled=True)
+---
+# Each attachment defines a key in an ALDocument. We use `i` as the placeholder here so the same template is 
+# used for "preview" and "final" keys, and logic in the template checks the value of 
+# `i` to show or hide the user's signature
+attachment:
+  name: Post-interview-Instructions
+  filename: lemon_law_letter_next_steps
+  docx template file: lemon_law_letter_next_steps.docx
+  variable name: lemon_law_letter_Post_interview_instructions[i]
+  skip undefined: True
+  tagged pdf: True
+---
+attachment:
+  name: lemon law letter
+  filename: lemon_law_letter
+  variable name: lemon_law_letter_attachment[i]
+  skip undefined: True
+  docx template file: Lemon_Law_Template.docx
+  tagged pdf: True
+
+
+

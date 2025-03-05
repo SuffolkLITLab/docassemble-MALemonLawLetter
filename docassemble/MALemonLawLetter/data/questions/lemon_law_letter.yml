@@ -1,7 +1,7 @@
 ---
 include:
   - docassemble.AssemblyLine:assembly_line.yml
-  - docassemble.MATCTheme:matc_theme.yml
+  #- docassemble.MATCTheme:matc_theme.yml # not approved by MATC
 ---
 metadata:
   title: >-
@@ -9,7 +9,9 @@ metadata:
   short title: >-
     Lemon law template
   description: |-
-        This interview will help you write a Final Repair Letter to a dealership under the Massachusetts Lemon Law. The Masachussetts Lemon Law protects buyers of new vehicles that have repair issues and cannot solve them working directly with the dealership they purchased from.
+        This interview will help you write a Final Repair Letter to a dealership under the Massachusetts Lemon Law. 
+        The Masachussetts Lemon Law protects buyers of new vehicles that have repair issues and cannot solve them 
+        working directly with the dealership they purchased from.
   can_I_use_this_form: |
     You can use this form if:
     
@@ -190,8 +192,10 @@ fields:
     datatype: integer
     min: 0
 ---
-question: When have you taken your vehicle in for repairs?
-subquestion: Start with the most recent time
+question: |
+  When have you taken your vehicle in for repairs?
+subquestion: |
+  Start with the most recent time
 fields:
   - "Dropoff date": date_return3
     datatype: date

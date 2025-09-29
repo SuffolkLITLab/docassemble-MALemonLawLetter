@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0  # Needed for git diff comparison
           
       - name: Validate DOCX Jinja2 templates
-        uses: SuffolkLITLab/ALActions/valid_jinja2@main
+        uses: SuffolkLITLab/ALActions/valid_jinja2@valid-jinja2
         with:
           # Optional: customize artifact and output names
           artifact_name: jinja-validation-report

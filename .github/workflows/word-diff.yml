@@ -1,0 +1,24 @@
+name: Word Diff
+
+on:
+    pull_request:
+    workflow_dispatch:
+        inputs:
+            base:
+                description: 'Base branch'
+                required: false
+                default: 'main'
+            head:
+                description: 'Head branch'
+                required: false
+
+jobs:
+    docx-review:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Diff Word documents
+              uses: SuffolkLITLab/ALActions/word_diff@word-diff-refinements
+              with:
+                   base_ref: ${{ github.event.inputs.base }}
+                   artifact_name: word-doc-diff
+                   output_dir: word_diffs

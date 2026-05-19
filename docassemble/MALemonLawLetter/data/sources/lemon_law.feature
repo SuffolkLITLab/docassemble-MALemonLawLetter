@@ -1,9 +1,10 @@
+@story_table
 Feature: Lemon Law Final Repair Letter Story
 
 Scenario: User completes the letter with three repair dates (Story Table)
-  Given I start the interview at "docassemble.MALemonLawLetter:data/questions/lemon_law_letter.yml"
-  And I wait to see "Lemon Law final repair letter"
-  When I run the interview with this story table:
+  Given I start the interview at "lemon_law_letter.yml"
+  And I SHOULD see the phrase "Lemon Law final repair letter"
+  When I get to the question id "download lemon_law_letter" with this data:
     | var | value |
     | acknowledged_information_use | True |
     | lemon_law_letter_intro | True |
@@ -32,13 +33,13 @@ Scenario: User completes the letter with three repair dates (Story Table)
     | date_return1 | 03/01/2024 |
     | lemon_law_letter_preview_question | True |
     | users[0].signature | /placeholder_signature.png |
-  Then I should see "All done"
-  And I should see "lemon law letter"
+  Then I SHOULD see the phrase "All done"
+  And I SHOULD see the phrase "lemon law letter"
 
 Scenario: Two users complete the letter (Story Table)
-  Given I start the interview at "docassemble.MALemonLawLetter:data/questions/lemon_law_letter.yml"
-  And I wait to see "Lemon Law final repair letter"
-  When I run the interview with this story table:
+  Given I start the interview at "lemon_law_letter.yml"
+  And I SHOULD see the phrase "Lemon Law final repair letter"
+  When I get to the question id "download lemon_law_letter" with this data:
     | var | value |
     | acknowledged_information_use | True |
     | lemon_law_letter_intro | True |
@@ -73,4 +74,4 @@ Scenario: Two users complete the letter (Story Table)
     | lemon_law_letter_preview_question | True |
     | users[0].signature | /placeholder_signature.png |
     | users[1].signature | /placeholder_signature.png |
-  Then I should see "All done"
+  Then I SHOULD see the phrase "All done"

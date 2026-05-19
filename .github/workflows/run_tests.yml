@@ -1,9 +1,9 @@
 name: ALKiln tests
 on:
+  pull_request:
   push:
     branches:
-      - kiln-tests-lemon
-  pull_request:
+      - main
 
 jobs:
   run-tests:

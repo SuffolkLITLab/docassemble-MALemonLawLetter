@@ -11,7 +11,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Start isolated server
+        id: github_server
+        uses: SuffolkLITLab/ALKiln/action_for_github_server@v5
       - name: Run tests
-        uses: SuffolkLITLab/ALKiln@v1
+        uses: SuffolkLITLab/ALKiln@v5
         with:
-          CONFIG_CONTENTS: ${{ secrets.CONFIG_CONTENTS }}
+          SERVER_URL: "${{ steps.github_server.outputs.SERVER_URL }}"
+          DOCASSEMBLE_DEVELOPER_API_KEY: "${{ steps.github_server.outputs.DOCASSEMBLE_DEVELOPER_API_KEY }}"

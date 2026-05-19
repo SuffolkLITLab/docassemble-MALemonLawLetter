@@ -19,3 +19,4 @@ jobs:
         with:
           SERVER_URL: "${{ steps.github_server.outputs.SERVER_URL }}"
           DOCASSEMBLE_DEVELOPER_API_KEY: "${{ steps.github_server.outputs.DOCASSEMBLE_DEVELOPER_API_KEY }}"
+          FEATURE_DIRECTORY: "tests/features"

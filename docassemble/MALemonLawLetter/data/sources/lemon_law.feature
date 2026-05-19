@@ -18,7 +18,7 @@ Scenario: User completes the letter with three repair dates (Story Table)
     | vehicle_year | 2023 |
     | vehicle_make | Toyota |
     | vehicle_model | Camry |
-    | purchase_date | 01/01/2024 |
+    | purchase_date | 01/01/2026 |
     | VIN | 12345678901234567 |
     | other_parties[0].name.first | Bad Dealer |
     | other_parties[0].address.address | 456 Oak St |
@@ -28,9 +28,9 @@ Scenario: User completes the letter with three repair dates (Story Table)
     | other_parties.there_is_another | False |
     | days_lost | 20 |
     | vehicle_issue_description | Engine makes a weird noise and won't start sometimes. |
-    | date_return3 | 05/01/2024 |
-    | date_return2 | 04/01/2024 |
-    | date_return1 | 03/01/2024 |
+    | date_return3 | 05/01/2026 |
+    | date_return2 | 04/01/2026 |
+    | date_return1 | 03/01/2026 |
     | lemon_law_letter_preview_question | True |
     | users[0].signature | /placeholder_signature.png |
   Then I SHOULD see the phrase "All done"
@@ -60,7 +60,7 @@ Scenario: Two users complete the letter (Story Table)
     | vehicle_year | 2023 |
     | vehicle_make | Toyota |
     | vehicle_model | Camry |
-    | purchase_date | 01/01/2024 |
+    | purchase_date | 01/01/2026 |
     | VIN | 12345678901234567 |
     | other_parties[0].name.first | Bad Dealer |
     | other_parties[0].address.address | 456 Oak St |
@@ -70,7 +70,7 @@ Scenario: Two users complete the letter (Story Table)
     | other_parties.there_is_another | False |
     | days_lost | 1 |
     | vehicle_issue_description | Small scratch. |
-    | date_return3 | 05/01/2024 |
+    | date_return3 | 05/01/2026 |
     | lemon_law_letter_preview_question | True |
     | users[0].signature | /placeholder_signature.png |
     | users[1].signature | /placeholder_signature.png |

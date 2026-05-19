@@ -3,7 +3,7 @@ Feature: Lemon Law Final Repair Letter Story
 
 Scenario: User completes the letter with three repair dates (Story Table)
   Given I start the interview at "lemon_law_letter.yml"
-  And I SHOULD see the phrase "Lemon Law final repair letter"
+  And I SHOULD see the phrase "Lemon law template"
   When I get to the question id "download lemon_law_letter" with this data:
     | var | value |
     | acknowledged_information_use | True |
@@ -38,7 +38,7 @@ Scenario: User completes the letter with three repair dates (Story Table)
 
 Scenario: Two users complete the letter (Story Table)
   Given I start the interview at "lemon_law_letter.yml"
-  And I SHOULD see the phrase "Lemon Law final repair letter"
+  And I SHOULD see the phrase "Lemon law template"
   When I get to the question id "download lemon_law_letter" with this data:
     | var | value |
     | acknowledged_information_use | True |

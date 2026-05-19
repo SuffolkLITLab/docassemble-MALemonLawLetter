@@ -1,8 +1,0 @@
-{
-  "name": "docassemble-malemonlawletter",
-  "version": "1.0.0",
-  "description": "Lemon Law Final Repair Letter",
-  "devDependencies": {
-    "@suffolklitlab/alkiln": "^5.0.0"
-  }
-}

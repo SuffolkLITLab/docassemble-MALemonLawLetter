@@ -1,9 +1,8 @@
 name: Valid Jinja2
 on:
-  pull_request:
   push:
     branches:
-      - main
+      - "**"
 jobs:
   validate:
     runs-on: ubuntu-latest

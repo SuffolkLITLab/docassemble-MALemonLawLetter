@@ -185,6 +185,7 @@ fields:
   - "Vehicle issue description": vehicle_issue_description
     input type: area
 ---
+id: "how many days have you been unable to use your vehicle"
 question:   How many days have you been unable to use your vehicle?
 subquestion: Include days it has not worked properly and days it has been at the dealership for repairs
 fields:
@@ -192,6 +193,7 @@ fields:
     datatype: integer
     min: 0
 ---
+id: "when have you taken your vehicle in for repairs"
 question: |
   When have you taken your vehicle in for repairs?
 subquestion: |
@@ -287,6 +289,7 @@ review:
       ${ date_return1 }
 ---
 continue button field: users.revisit
+id: "edit users"
 question: |
   Edit users
 subquestion: |

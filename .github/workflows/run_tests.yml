@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Start isolated server
         id: github_server
         uses: SuffolkLITLab/ALKiln/action_for_github_server@v5
